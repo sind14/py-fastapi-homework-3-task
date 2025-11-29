@@ -15,7 +15,6 @@ from database import (
     RefreshTokenModel
 )
 from exceptions import TokenExpiredError, InvalidTokenError
-from schemas import UserLoginResponseSchema
 from schemas.accounts import (
     UserRegRequestSchema,
     UserRegResponseSchema,
@@ -26,6 +25,7 @@ from schemas.accounts import (
     PasswordResetCompleteResponseSchema,
     PasswordResetCompleteRequestSchema,
     UserLoginRequestSchema,
+    UserLoginResponseSchema,
     RefreshTokenResponseSchema,
     RefreshTokenRequestSchema,
 )
@@ -267,7 +267,7 @@ async def login_user(
         )
 
 
-@router.post("/refresh/", response_model=RefreshTokenResponseSchema, status_code=status.HTTP_200_OK)
+@router.post("/api/v1/accounts/refresh/", response_model=RefreshTokenResponseSchema, status_code=status.HTTP_200_OK)
 async def refresh_access_token(
         refresh: RefreshTokenRequestSchema,
         db: AsyncSession = Depends(get_db),
